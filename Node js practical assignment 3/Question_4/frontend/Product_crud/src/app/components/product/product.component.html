@@ -1,0 +1,17 @@
+<div class="container" *ngFor="let product of AllProduct">
+    <div class="row mt-5">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3>{{product.product_name}}</h3>
+                    <span><b>Price</b>: {{product.product_price}}</span><br>
+                    <span><b>Discount</b>:{{product.product_discount}}%</span><br>
+                    <span><b>Category</b>:{{product.category}}%</span>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-outline-success">View</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

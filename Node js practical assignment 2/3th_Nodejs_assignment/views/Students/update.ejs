@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= data.title%></title>
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+</head>
+<body>
+    <form id="add-student" action="/student/save" method="post">
+        <div class="modal fade" id="student_modal" data-backdrop="static" data-keyboard="false" role="dialog">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+    
+                    <!-- Modal header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Student</h4>
+                    </div>
+    
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" name="_id" value="<%=data.student._id%>">
+                            <label for="student_name">Name</label>
+                            <input type="text" name="student_name" id="student_name" class="form-control" value="<%=data.student.student_name%>">
+                        </div>
+                        <div class="form-group">
+                            <label for="student_email">Email</label>
+                            <input type="email" name="student_email" id="student_email" class="form-control" value="<%=data.student.student_email%>">
+                        </div>
+                        <div class="form-group">
+                            <label for="student_age">Age</label>
+                            <input type="number" name="student_age" id="student_age" class="form-control" value="<%=data.student.student_age%>">
+                        </div>
+                        <div class="form-group">
+                            <label for="student_gender">Gender</label>
+                            <input type="radio" name="student_gender" id="student_gender" value="Male" <%=data.student.student_gender=="Male"?"Checked":""%>>Male
+                            <input type="radio" name="student_gender" id="student_gender" value="Female" <%=data.student.student_gender=="Female"?"Checked":""%>>Female
+                        </div>
+                        <div class="form-group">
+                            <label for="student_phone">Phone</label>
+                            <input type="text" name="student_phone" id="student_phone" class="form-control" value="<%=data.student.student_phone%>">
+                        </div>
+                    </div>
+    
+                    <!-- Modal Footer -->
+                    <div class="modal-footer justify-content-start">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+</body>
+<script src="/jquery/jquery.js"></script>
+<script src="/bootstrap/bootstrap.min.js"></script>
+<script src="/jquery/popper.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#student_modal").modal("show");
+
+
+
+    });
+</script>
+
+</html>

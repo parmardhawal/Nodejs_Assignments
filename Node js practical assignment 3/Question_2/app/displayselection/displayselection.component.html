@@ -1,0 +1,7 @@
+<select (change)="changeBox()">
+    <option *ngFor="let item of selection" [value]="item" id="selection">
+      {{ item }}
+    </option>
+  </select>
+  <input type="text" id="textbox" *ngIf="textbox" />
+  <textarea name="" id="textarea" cols="30" rows="10" *ngIf="textarea"></textarea>

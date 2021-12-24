@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h3 class="text-center text-dark">Login</h3>
+        </div>
+        <form id="login-form">
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" class="form-control" placeholder="Email" id="email">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                 <input type="password" name="password" placeholder="Password" id="password" class="form-control">
+            </div>
+        
+            <div class="form-group mt-3">
+                <input type="submit" value="Login" class="btn btn-primary">
+                <a href="create">Don't have an account?</a>
+            </div>
+        </form>
+    </div>
+</body>
+<script type="text/javascript">
+    document.getElementById("login-form").addEventListener("submit",loginForm);
+
+    async function loginForm(event)
+    {
+       event.preventDefault();
+
+       const email = document.getElementById("email").value;
+       const password = document.getElementById("password").value;
+
+       const result =  await fetch("/api/user/login",{
+            method:"POST",
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body:JSON.stringify({
+                email,password
+            })
+        }).then(res=>{
+            return res.json();
+        }).catch(err=>{
+            console.log("Error: "+err);
+        });
+
+        alert(result.message);
+        if(result.status)
+        {
+            window.location.href = "/api/student/index";
+        }
+    }
+
+</script>
+</html>

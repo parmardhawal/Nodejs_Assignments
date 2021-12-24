@@ -1,0 +1,72 @@
+<div class="container">
+    <h2>Insert Product</h2>
+    <div class="container mt-5">
+        <form (ngSubmit)="AddProduct()" [formGroup]="insertProduct">
+           <div class="row">
+               <div class="col">
+                    <div class="form-group">
+                        <label for="product_name">Product name</label>
+                        <input type="text" formControlName="product_name" class="form-control" name="product_name" id="product_name" placeholder="Product name">
+                        <span class="text-danger" *ngIf="product_name && product_name.invalid && product_name.touched">Name is required</span>
+                    </div>
+                    
+               </div>
+               <div class="col">
+                <div class="form-group">
+                    <label for="product_price">Product name</label>
+                    <input type="text" formControlName="product_price" class="form-control" name="product_price" id="product_price" placeholder="Product price">
+                    <span class="text-danger" *ngIf="product_price && product_price.invalid && product_price.touched">Price is required</span>
+                </div>
+               </div>
+            
+           </div>
+           <div class="row">
+               <div class="col">
+                    <div class="form-group">
+                        <label for="product_discount">Product name</label>
+                        <input type="text" formControlName="product_discount" class="form-control" name="product_discount" id="product_discount" placeholder="Product discount">
+                        <span class="text-danger" *ngIf="product_discount && product_discount.invalid && product_discount.touched">Discount is required</span>
+                    </div>
+                </div>
+               <div class="col">
+                <div class="form-group">
+                    <label for="category">Product name</label>
+                    <input type="text" formControlName="category" class="form-control" name="category" id="category" placeholder="Category">
+                    <span class="text-danger" *ngIf="category && category.invalid && category.touched">Category is required</span>
+                </div>
+               </div>
+            
+           
+           </div>
+           <input type="submit" [disabled]="insertProduct.invalid" value="Add"  class="btn btn-primary">
+        </form>
+    </div>
+
+    <hr>
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Discount</th>
+                    <th>Category</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let product of AllProduct">
+                <tr>
+                    <td>{{product.product_name}}</td>
+                    <td>{{product.product_price}}</td>
+                    <td>{{product.product_discount}}%</td>
+                    <td>{{product.category}}</td>
+                    <td>
+                        <button class="btn btn-warning" (click)="editProduct(product)">Edit</button>|
+                        <button class="btn btn-danger" (click)="deleteProduct(product)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>

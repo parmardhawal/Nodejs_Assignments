@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create user</title>
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h3 class="text-center text-dark">Register</h3>
+        </div>
+        <form id="register-user">
+            <div class="form-group">
+                <label for="firstname">First name</label>
+                <input type="text" name="firstname" id="firstname" class="form-control">
+            </div>
+    
+            <div class="form-group">
+                <label for="lastname">Last name</label>
+                <input type="text" name="lastname" id="lastname" class="form-control">
+            </div>
+    
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" class="form-control">
+            </div>
+    
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" class="form-control">
+            </div>
+    
+            <div class="form-group">
+                <label for="cpassword">Confirm Password</label>
+                <input type="cpassword" name="cpassword" id="cpassword" class="form-control">
+            </div>
+    
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="login">Already have an account?</a>
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+
+    document.getElementById("register-user").addEventListener("submit",registerUser);
+
+
+    function returnValue(fieldId)
+    {
+        return document.getElementById(fieldId).value;
+    }
+
+    async function registerUser(event)
+    {
+        event.preventDefault();
+
+        let firstname = returnValue("firstname");
+        let lastname = returnValue("lastname");
+        let email = returnValue("email");
+        let password = returnValue("password");
+        let cpassword = returnValue("cpassword");
+
+       const result =  await fetch("/api/user/create",{
+            method:"POST",
+            headers:{
+                'Content-type':'application/json'
+            },
+            body:JSON.stringify({
+                firstname,lastname,email,password,cpassword
+            })
+        }).then(res=>res.json()).catch(err=>{console.log('Error is there')});
+
+        alert(result.message);
+        if(result.status)
+        {
+            window.location.href = "login";
+        }
+
+    }
+
+</script>
+</html>

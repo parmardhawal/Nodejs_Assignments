@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=title%></title>
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h3 class="text-center text-dark">Login</h3>
+        </div>
+        <form id="login-form">
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" class="form-control" placeholder="Email" id="email">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                 <input type="password" name="password" placeholder="Password" id="password" class="form-control">
+            </div>
+        
+            <div class="form-group mt-3">
+                <input type="submit" value="Login" class="btn btn-primary">
+                <a href="create">Don't have an account?</a>
+            </div>
+        </form>
+    </div>
+</body>
+<script src="/jquery/jquery.js"></script>
+<script type="text/javascript">
+    $(document).ready(()=>{
+        $("#login-form").on("submit",function(e){
+            e.preventDefault();
+
+            var formData = new FormData(e.target);
+            var object = {};
+
+            formData.forEach((value,key)=>object[key]=value);
+
+            $.ajax({
+                url:'login',
+                type:"POST",
+                data:JSON.stringify(object),
+                processData:false,
+                contentType:"application/json",
+                dataType:"json",
+                success:function(result)
+                {
+                    alert(result.message);
+                    if(result.status)
+                    {
+                        window.location.href="/student";
+                    }
+                },
+                error:function(err)
+                {
+                    if(!err.responseJSON.status)
+                    {
+                        alert(err.responseJSON.message);
+                    }
+                }
+            });
+        });
+    });
+</script>
+</html>

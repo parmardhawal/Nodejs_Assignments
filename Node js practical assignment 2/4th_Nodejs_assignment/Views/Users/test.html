@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="test-form">
+        <button type="submit">Submit</button>
+    </form>
+</body>
+<script type="text/javascript">
+ 
+    document.getElementById("test-form").addEventListener("submit",testForm);
+
+     async function testForm(event){
+        event.preventDefault();
+        const result=  await fetch("/api/user/action",{
+            method:"POST",
+            headers:{
+                'Content-type':'application/json'
+            }
+        }).then(res=>res.json()).catch(err=>console.log('Error :'+err));
+
+        alert(result.message);
+
+    };
+
+    
+
+</script>
+</html>

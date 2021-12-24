@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+    <title><%=data.title%></title>
+    <style>
+        .cancel_button{
+            background-color: #616A6B;
+            color: white;
+        }
+        .cancel_button:hover{
+            background-color: #424949;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <ul class="navbar-nav">
+            <li class="navbar-item">
+                <span class="navbar-text"><%=data.username%></span>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="navbar-item">
+                <a href="student/logout" class="nav-link">Logout</a>
+            </li>
+        </ul>
+    </nav>
+
+    
+    <div class="container">
+        <div class="float-right">
+            <button id="add" class="btn btn-outline-primary" data-toggle="modal" data-target="#student_modal" data-backdrop="static" type="button">Add Student</button>
+        </div>
+    </div>
+
+    <form id="add-student" action="/student/insert" method="post">
+    <div class="modal fade" id="student_modal" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Student</h4>
+                    <button class="close" type="submit" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="student_name">Name</label>
+                        <input type="text" name="student_name" id="student_name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="student_email">Email</label>
+                        <input type="email" name="student_email" id="student_email" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="student_age">Age</label>
+                        <input type="number" name="student_age" id="student_age" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="student_gender">Gender</label>
+                        <input type="radio" name="student_gender" id="student_gender" value="Male">Male
+                        <input type="radio" name="student_gender" id="student_gender" value="Female">Female
+                    </div>
+                    <div class="form-group">
+                        <label for="student_phone">Phone</label>
+                        <input type="text" name="student_phone" id="student_phone" class="form-control">
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer justify-content-start">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button"id="cancelBtn" data-dismiss="modal" class="btn btn-light cancel_button">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+
+    
+    <div class="container mt-3">
+
+       
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Phone</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                <% if(data.result.length>0) { %>
+                    <%data.result.forEach(student=>{%>
+                        <tr>
+                            <td><%=student.student_name%></td>
+                            <td><%=student.student_email%></td>
+                            <td><%=student.student_age%></td>
+                            <td><%=student.student_gender%></td>
+                            <td><%=student.student_phone%></td>
+                            <td>
+                                <a href="student/edit/<%=student._id%>" class="btn btn-primary">Edit</a>
+                                |
+                                <a href="student/remove/<%=student._id%>" onclick="return confirm('Are you sure?')" class="btn btn-danger">Remove</a>
+                            </td>
+                        </tr>
+                    <%})%>
+                <% } else { %>
+                    <tr>
+                        <td colspan="6" align="center">No records found</td>
+                    </tr>    
+                <%}%>         
+            </tbody>
+        </table>
+    </div>
+
+    
+</body>
+<script src="/jquery/jquery.js"></script>
+<script src="/bootstrap/bootstrap.min.js"></script>
+<script src="/jquery/popper.min.js"></script>
+
+</html>

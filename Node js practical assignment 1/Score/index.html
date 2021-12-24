@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.min.js"></script>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2" align="center">Cricket Live score</td>
+            </tr>
+            <tr>
+                <th>Runs</th>
+                <th>Wickets</th>
+            </tr>
+        </thead>
+       <tbody>
+        <tr>
+            <td id="runs"></td>
+             <td id="wicket"></td>
+        </tr>
+       </tbody>
+    </table>
+</body>
+<script>
+     const socket = io("http://localhost:3000");
+     socket.on('connection');
+
+     var runs = document.getElementById("runs");
+     var Wickets = document.getElementById("wicket");
+
+     function getData()
+     {
+         socket.on('output',(data)=>{
+            runs.textContent = data.runs;
+            Wickets.textContent = data.wicket;
+         });
+
+        
+     }
+
+     setInterval(getData(),1000);
+
+     
+
+</script>
+</html>
